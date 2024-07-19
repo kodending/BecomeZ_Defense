@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
+  m_Name: PhotonServerSettings
+  m_EditorClassIdentifier: 
+  AppSettings:
+    AppIdRealtime: 5dbb34db-9bfc-4827-89af-0d17e33679b0
+    AppIdFusion: 
+    AppIdChat: 
+    AppIdVoice: 
+    AppVersion: 
+    UseNameServer: 1
+    FixedRegion: 
+    Server: 
+    Port: 0
+    ProxyServer: 
+    Protocol: 0
+    EnableProtocolFallback: 1
+    AuthMode: 0
+    EnableLobbyStatistics: 0
+    NetworkLogging: 1
+  DevRegion: jp
+  PunLogging: 0
+  EnableSupportLogger: 0
+  RunInBackground: 1
+  StartInOfflineMode: 0
+  RpcList:
+  - ClickRpc
+  - DestroyRpc
+  - DestroySpaceship
+  - Fire
+  - RespawnSpaceship
+  - ChatRPC
+  - AnimRPC
+  - IdleAnimRPC
+  - ActiveAnimRPC
+  - PlayerJump
+  - ActiveTriggerAnimRPC
+  - ActiveBoolAnimRPC
+  - GenerateUnitsRPC
+  - ActiveCraftedUnitRPC
+  - ChangeCostume
+  - LoadInGameCharacter
+  - Test
+  - InformEnterLobby
+  - InformEnterRoom
+  - InformNewPlayer
+  - DestroyObjectRPC
+  - ResetParam
+  - ResetParamRPC
+  - DeathParamRPC
+  - UpdateStartCountRPC
+  - StartGameRPC
+  - InitParamRPC
+  - RefreshRoomPlayerState
+  - RefreshRoomPlayerStateRPC
+  - InActiveReadyButtonRPC
+  - UpdateGameTimerCountRPC
+  - UpdateGameTimerRPC
+  - GameTimeSetRPC
+  - RefreshKillLeaderboardRPC
+  - AtkPRC
+  - AtkRPC
+  - FloatDmg
+  - SetBuffRPC
+  - rotRPC
+  - RotRPC
+  - AddInRomm
+  - AnimTriggerRPC
+  - AnimBoolRPC
+  - AnimFloatRPC
+  - AnimIntRPC
+  - OnFXRPC
+  - LevelUpRPC
+  - SelectJobRPC
+  - UpStatRPC
+  - SetUnitBuffRPC
+  - SetPlayerBuffRPC
+  - CheerFXRPC
+  - OpenRPC
+  - GetGoldRPC
+  - PassRPC
+  - PassEnemyRPC
+  - GameSetRPC
+  DisableAutoOpenWizard: 1
+  ShowSettings: 1
+  DevRegionSetOnce: 1

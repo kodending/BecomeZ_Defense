@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bullet
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -11,21 +13,21 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Floor
+  - Unit
+  - Trans
+  - Item
+  - PlayerWall
+  - Wall
+  - Environment
+  - Enemy
+  - Ground
+  - Door
+  - UnitBullet
+  - Gamble
+  - GambleBox
+  - JumpLink
   - 
   - 
   - 
