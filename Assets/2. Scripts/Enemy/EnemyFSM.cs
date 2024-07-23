@@ -143,9 +143,6 @@ public class EnemyFSM : MonoBehaviourPunCallbacks, IPunObservable
     public void InitParam(int idx, bool bRand, int iRand, int eStartType)
     {
         m_pv.RPC("ResetParamRPC", RpcTarget.All, idx, bRand, iRand, eStartType);
-
-        m_agent.acceleration = m_sInfo.accel;
-        m_agent.speed = m_sInfo.spd;
     }
 
     [PunRPC]
@@ -182,6 +179,9 @@ public class EnemyFSM : MonoBehaviourPunCallbacks, IPunObservable
         m_sInfo.gold = int.Parse(dicInfo["GOLD"].ToString());
 
         m_anim.SetTrigger("Run");
+
+        m_agent.acceleration = m_sInfo.accel;
+        m_agent.speed = m_sInfo.spd;
     }
 
     public void RefreshHp(int curHp)

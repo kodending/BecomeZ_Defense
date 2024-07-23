@@ -130,6 +130,7 @@ public class ObjectPoolManager : MonoBehaviourPunCallbacks, IPunPrefabPool
                     if (fab.name == strInfo[1])
                     {
                         GameObject go = Instantiate(fab, position, rotation);
+                        NetworkManager.nm.m_listEnemyInfo.Add(go.GetComponent<EnemyFSM>());
                         go.SetActive(false);
                         return go;
                     }

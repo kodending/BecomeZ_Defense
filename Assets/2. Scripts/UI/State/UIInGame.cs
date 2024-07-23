@@ -66,13 +66,17 @@ public class UIInGame : BaseState
 
         UIManager.um.m_btnReady.gameObject.SetActive(false);
 
-        #region 조이스틱 UI 관련 변수
-        m_btnJoy            = gameUIPanel.transform.Find("JoyButton").GetComponent<Button>();
-        m_btnJoy.onClick.AddListener(OnClickJoy);
-        m_btnJoy.onClick.AddListener(() => AudioManager.PlaySfx(SFX.BUTTON));
+        //#region 조이스틱 UI 관련 변수
+        //m_btnJoy            = gameUIPanel.transform.Find("JoyButton").GetComponent<Button>();
+        //m_btnJoy.onClick.AddListener(OnClickJoy);
+        //m_btnJoy.onClick.AddListener(() => AudioManager.PlaySfx(SFX.BUTTON));
 
-        m_isJoyCheck = GameManager.gm.m_pcLocal.m_eCurControl == PLAYERCONTROL.JOYSTCK ? false : true;
-        #endregion
+        //m_isJoyCheck = GameManager.gm.m_pcLocal.m_eCurControl == PLAYERCONTROL.JOYSTCK ? false : true;
+
+        //m_btnJoy.image.sprite = UIManager.um.m_listCheckSprite[Convert.ToInt32(m_isJoyCheck)];
+
+        //GameManager.gm.m_pcLocal.m_fixedJoy.gameObject.SetActive(!m_isJoyCheck);
+        //#endregion
 
         #region 채팅 관련 변수
         m_btnChat           = gameUIPanel.transform.Find("ActiveChatButton").GetComponent<Button>();
@@ -158,25 +162,14 @@ public class UIInGame : BaseState
         #endregion
 
         #region 인게임 돈 확인
-        UIManager.um.m_goGoldPanel = gameUIPanel.transform.Find("GoldPanel").gameObject;
-        UIManager.um.m_txtGold = UIManager.um.m_goGoldPanel.transform.Find("GoldText").GetComponent<Text>();
-
-        UIManager.um.m_txtGold.text = "0";
         UIManager.um.m_goGoldPanel.SetActive(true);
         UIManager.um.ShowScaleUI(UIManager.um.m_goGoldPanel);
         #endregion
-
-        //돈 초기화
-        if (GameManager.gm.m_pcLocal.m_pv.IsMine)
-        {
-            GameManager.gm.m_pcLocal.m_iMyGold = 200;
-            UIManager.um.m_txtGold.text = GameManager.gm.m_pcLocal.m_iMyGold.ToString();
-        }
     }
 
     void ClearButtonSet()
     {
-        m_btnJoy.onClick.RemoveAllListeners();
+        //m_btnJoy.onClick.RemoveAllListeners();
         m_btnChat.onClick.RemoveAllListeners();
         m_btnSend.onClick.RemoveAllListeners();
         m_btnSetting.onClick.RemoveAllListeners();
@@ -185,17 +178,17 @@ public class UIInGame : BaseState
         m_btnGambling.onClick.RemoveAllListeners();
     }
 
-    void OnClickJoy()
-    {
-        GameManager.gm.m_pcLocal.m_eCurControl =
-        GameManager.gm.m_pcLocal.m_eCurControl == PLAYERCONTROL.JOYSTCK ? PLAYERCONTROL.KEYBOARD : PLAYERCONTROL.JOYSTCK;
+    //void OnClickJoy()
+    //{
+    //    GameManager.gm.m_pcLocal.m_eCurControl =
+    //    GameManager.gm.m_pcLocal.m_eCurControl == PLAYERCONTROL.JOYSTCK ? PLAYERCONTROL.KEYBOARD : PLAYERCONTROL.JOYSTCK;
 
-        m_isJoyCheck = GameManager.gm.m_pcLocal.m_eCurControl == PLAYERCONTROL.JOYSTCK ? false : true;
+    //    m_isJoyCheck = GameManager.gm.m_pcLocal.m_eCurControl == PLAYERCONTROL.JOYSTCK ? false : true;
 
-        m_btnJoy.image.sprite = UIManager.um.m_listCheckSprite[Convert.ToInt32(m_isJoyCheck)];
+    //    m_btnJoy.image.sprite = UIManager.um.m_listCheckSprite[Convert.ToInt32(m_isJoyCheck)];
 
-        GameManager.gm.m_pcLocal.m_fixedJoy.gameObject.SetActive(!m_isJoyCheck);
-    }
+    //    GameManager.gm.m_pcLocal.m_fixedJoy.gameObject.SetActive(!m_isJoyCheck);
+    //}
 
     void OnClickActiveChat()
     {

@@ -1110,11 +1110,10 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
   - {fileID: 6652941952472026501}
   - {fileID: 6420380886561766722}
-  - {fileID: -6938345137747182523}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1140,10 +1139,10 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: Run
   - Type: 4
-    SynchronizeType: 2
+    SynchronizeType: 1
     Name: IsJump
   m_SynchronizeLayers:
-  - SynchronizeType: 2
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!114 &-4649750575630409847
 MonoBehaviour:

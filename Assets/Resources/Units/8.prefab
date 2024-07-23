@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pv: {fileID: -8482680564228679874}
-  m_anim: {fileID: 0}
+  m_anim: {fileID: -5796595579601396407}
   m_pjAttackRange: {fileID: 6169353664855209221}
   m_curState: 0
   m_enemyScan: {fileID: -4476061867329056568}

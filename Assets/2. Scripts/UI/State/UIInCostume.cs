@@ -116,6 +116,8 @@ public class UIInCostume : BaseState
         m_goPresetPanel.SetActive(false);
         m_goSaveLoadPanel.SetActive(false);
         m_btnExit.gameObject.SetActive(false);
+
+        CostumeManager.cm.m_eCurCosType = COSTUMETYPE._MAX_;
     }
 
     #   region 코스튬 관련 클릭 함수들
@@ -240,7 +242,7 @@ public class UIInCostume : BaseState
         {
             CostumeManager.cm.m_goPurchasePanel.SetActive(true);
             UIManager.um.ShowScaleUI(CostumeManager.cm.m_goPurchasePanel);
-            CostumeManager.cm.m_txtItemPrice.text = CostumeManager.cm.m_dicCatalogItem[strKey].VirtualCurrencyPrices["PG"].ToString();
+            CostumeManager.cm.m_txtItemPrice.text = GameManager.gm.m_dicCatalogItem[strKey].VirtualCurrencyPrices["PG"].ToString();
             CostumeManager.cm.m_strCurItemKey = strKey;
         }
     }

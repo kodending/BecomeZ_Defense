@@ -33,7 +33,7 @@ public class GMInPhaseReady : BaseState
         if (!PhotonNetwork.IsMasterClient) return;
 
         //NetworkManager.nm.m_iGameTimer = 31;
-        NetworkManager.nm.m_iGameTimer = 16;
+        NetworkManager.nm.m_iGameTimer = 11;
 
         GameManager.gm.StartCoroutine(NetworkManager.nm.InGameTimer());
     }

@@ -187,6 +187,13 @@ public class UIInField : BaseState
         m_btnSetting.onClick.AddListener(() => AudioManager.PlaySfx(SFX.BUTTON));
         #endregion
 
+        #region 인게임 돈 확인
+        UIManager.um.m_goGoldPanel = gameUIPanel.transform.Find("GoldPanel").gameObject;
+        UIManager.um.m_txtGold = UIManager.um.m_goGoldPanel.transform.Find("GoldText").GetComponent<Text>();
+
+        UIManager.um.m_txtGold.text = GameManager.gm.m_pcLocal.m_iMyGold.ToString();
+        #endregion
+
         OnJoinedChat();
     }
 

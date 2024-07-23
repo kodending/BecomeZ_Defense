@@ -203,6 +203,12 @@ public class UserPanelManager : MonoBehaviourPunCallbacks
         string nickName = GameManager.gm.m_pcLocal.m_pv.Owner.NickName;
         float plus = float.Parse(cardInfo["PLUS"].ToString());
 
+        string msg = "²Ξ";
+        if(typeIdx != 0)
+            msg = ((CARDTYPE)typeIdx).ToString() + " : " + plus.ToString() + " Αυ°‘";
+
+        UIManager.um.SystemMessage(msg);
+
         GameManager.gm.m_pcLocal.m_pv.RPC("UpStatRPC", RpcTarget.All, typeIdx, nickName, plus);
 
         m_arrCardObj[idx].transform.DORotate(new Vector3(0, 180, 0), 0.1f);

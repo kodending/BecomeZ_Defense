@@ -131,8 +131,6 @@ public class UIInLobby : BaseState
             prefab.curPeopleTxt.text = room.PlayerCount.ToString() + " / " + room.MaxPlayers;
             prefab.roomIdx = i;
 
-            Debug.Log((string)room.CustomProperties["password"]);
-
             if (room.CustomProperties.Count == 0)
             {
                 prefab.publicObj.SetActive(true);

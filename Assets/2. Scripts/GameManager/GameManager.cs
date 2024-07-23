@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 using ExitGames.Client.Photon;
+using PlayFab.ClientModels;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -53,6 +54,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public List<Dictionary<string, object>> m_roundInfo;
 
     public GameObject scriptMachine;
+    
+    [HideInInspector]
+    public Dictionary<string, CatalogItem> m_dicCatalogItem = new Dictionary<string, CatalogItem>();
 
     private void Awake()
     {
@@ -167,7 +171,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         int iStartRank = int.Parse(unitInfo["RANK"].ToString());
 
         GameObject unit = PhotonNetwork.Instantiate(strUnits, i_trPos.position, Quaternion.Euler(0, 180, 0));
-        unit.transform.SetParent(GameObject.Find("BakeNavi").transform.Find("Units"));
 
         unit.GetComponent<UnitFSM>().InitParam(unitInfo);
 
@@ -208,7 +211,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, m_UnitLayer))
         {
-            if (m_listMyUnits.Contains(hit.transform.GetComponent<UnitFSM>()))
+            if (!m_listMyUnits.Contains(hit.transform.GetComponent<UnitFSM>()))
+            {
+                UIManager.um.SystemMessage("≥ª ¿Ø¥÷¿Ã æ∆¥’¥œ¥Ÿ.");
+                return;
+            }
+
+            else if(m_listMyUnits.Contains(hit.transform.GetComponent<UnitFSM>()))
             {
                 var unit = hit.transform.GetComponent<UnitFSM>();
 
@@ -281,7 +290,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             var target = hit.transform.GetComponent<UnitFSM>();
 
-            if (m_listMyUnits.Contains(target))
+            if (!m_listMyUnits.Contains(target))
+            {
+                UIManager.um.SystemMessage("≥ª ¿Ø¥÷¿Ã æ∆¥’¥œ¥Ÿ.");
+                return;
+            }
+
+            else if (m_listMyUnits.Contains(target))
             {
                 foreach (var unit in m_listMyUnits)
                 {

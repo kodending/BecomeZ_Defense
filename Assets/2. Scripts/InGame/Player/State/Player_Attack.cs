@@ -219,20 +219,24 @@ public class Player_Attack : PlayerBaseState
                 }
             }
 
+            List<RaycastHit> listRemoveally = new List<RaycastHit>();
+
             //아군이 벗어났는지 확인용
             foreach (var ally in playerController.m_listCheckAlly)
             {
-                if (ally.transform.gameObject == playerController.transform.gameObject) continue;
-
                 //버프 초기화
                 if (!playerController.m_targetAlly.Contains(ally))
                 {
                     NotCheerAlly(ally);
                     m_iTargetCnt--;
-                    playerController.m_listCheckAlly.Remove(ally);
+                    //playerController.m_listCheckAlly.Remove(ally);
+                    listRemoveally.Add(ally);
                 }
+            }
 
-                if (playerController.m_listCheckAlly.Count == 0) break;
+            foreach (var ally in listRemoveally)
+            {
+                playerController.m_listCheckAlly.Remove(ally);
             }
 
             //혹시나 버프 꺼진놈이 있으면 버프 다시 켜준다.

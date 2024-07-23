@@ -9,6 +9,7 @@ public class GMInField : BaseState
     public override void OnEnterState()
     {
         //MapGenerator.mg.GenerateMap();
+        GameManager.gm.m_iUnitCount = 0;
         UIManager.um.m_stateMachine.ChangeState(UISTATE.ENTERING_FIELD);
     }
 

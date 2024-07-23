@@ -57,12 +57,6 @@ public class UnitFSM : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (!m_pv.IsMine) return;
-
-        if (m_enemyScan.checkedTargetEnemies.Count > 0)
-            if(m_enemyScan.nearestTargetEnemy != null) 
-                ScanAttackEnemy();
-
         m_stateMachine.UpdateState();
     }
 
@@ -76,16 +70,6 @@ public class UnitFSM : MonoBehaviourPunCallbacks
         m_stateMachine = new UnitStateMachine(UNITSTATE.ENTRY, new Unit_Entry(this));
         m_stateMachine.AddState(UNITSTATE.IDLE, new Unit_Idle(this));
         m_stateMachine.AddState(UNITSTATE.ATTACK, new Unit_Attack(this));
-
-        //m_curState = UNITSTATE.IDLE;
-        //m_stateMachine.currentState?.OnEnterState();
-    }
-    void ScanAttackEnemy()
-    {
-        if (m_sInfo.eType == UNITTYPE.BUFFER || m_sInfo.eType == UNITTYPE.SPECIAL_BUFFER) return;
-
-        if (m_curState != UNITSTATE.ATTACK && m_curState != UNITSTATE.ENTRY)
-            m_stateMachine.ChangeState(UNITSTATE.ATTACK);
     }
 
     public void InitParam(Dictionary<string, object> dicInfo, float fDelayTime = 0, int curLV = 0)
@@ -125,6 +109,9 @@ public class UnitFSM : MonoBehaviourPunCallbacks
         else m_sInfo.curLV = curLV;
         m_sInfo.LvAtk = int.Parse(dicInfo["LVATK"].ToString());
 
+        m_anim = m_dicPrefabs[m_sInfo.eRank].GetComponent<Animator>();
+        transform.SetParent(GameObject.Find("BakeNavi").transform.Find("Units"));
+
         ActiveRankUnit(m_sInfo.eRank, fDelayTime);
 
         m_pjAttackRange.orthographicSize = m_sInfo.atkRange;
@@ -141,7 +128,13 @@ public class UnitFSM : MonoBehaviourPunCallbacks
     public void AnimIntRPC(string strName, int iInt) => m_anim.SetInteger(strName, iInt);
 
     [PunRPC]
-    public void AnimBoolRPC(string strName, bool bBool) => m_anim.SetBool(strName, bBool);
+    public void AnimBoolRPC(string strName, bool bBool, int stateIdx) { m_anim.SetBool(strName, bBool); m_curState = (UNITSTATE)stateIdx; Debug.Log("≥ª ªÛ≈¬ : " + m_curState.ToString()); }
+
+    [PunRPC]
+    public void ChangeStateRPC(int stateIdx)
+    {
+        m_stateMachine.ChangeState((UNITSTATE)stateIdx);
+    }
 
     public void SetUnitBuff(int buffAtk = 0, float buffAtkSpd = 0, int buffIdx = 0)
     {
@@ -217,6 +210,8 @@ public class UnitFSM : MonoBehaviourPunCallbacks
     [PunRPC]
     void OnFXRPC(string fxName, Vector3 pos)
     {
+        //Debug.Log("≥ª ¿Ã∆Â∆Æ ΩË¥Ÿ : " +  fxName);
+
         GameObject ef = EffectPoolManager.GetEffect(fxName);
         ef.transform.position = pos;
         ef.SetActive(true);

@@ -10,6 +10,7 @@ using System;
 using DG.Tweening;
 using UnityEngine.AI;
 using Photon.Pun.UtilityScripts;
+using PlayFab.EconomyModels;
 
 public class UIManager : MonoBehaviourPunCallbacks
 {
@@ -437,7 +438,7 @@ public class UIManager : MonoBehaviourPunCallbacks
     {
         if (m_txtGold == null) return;
 
-        sequenceScale = DOTween.Sequence()
+        Sequence moneySeq = DOTween.Sequence()
         .SetAutoKill(true)
         .OnStart(()=>
         {
@@ -482,7 +483,7 @@ public class UIManager : MonoBehaviourPunCallbacks
         m_sdLife.DOValue(m_curLife, 0.2f, true);
     }
 
-    public void OnResult(int result)
+    public void OnResult(int result, Dictionary<string, int> dic)
     {
         GameObject gamePanel = GameObject.Find("Canvas").transform.Find("GameUIPanel").gameObject;
         gamePanel.SetActive(false);
@@ -490,13 +491,13 @@ public class UIManager : MonoBehaviourPunCallbacks
         if((GAMERESULT)result == GAMERESULT.GAMEOVER)
         {
             AudioManager.PlaySfx(SFX.GAMEOVER);
-            GameResultPanel.RefreshInfo(GAMERESULT.GAMEOVER);
+            GameResultPanel.RefreshInfo(GAMERESULT.GAMEOVER, dic);
         }
 
         else
         {
             AudioManager.PlaySfx(SFX.GAMEVICTORY);
-            GameResultPanel.RefreshInfo(GAMERESULT.VICTORY);
+            GameResultPanel.RefreshInfo(GAMERESULT.VICTORY, dic);
         }
     }
 
@@ -540,7 +541,9 @@ public class UIManager : MonoBehaviourPunCallbacks
         NetworkManager.nm.m_dicPlayFabCostume.Clear();
         GameManager.gm.m_dicUserKillCount.Clear();
         GameManager.gm.m_dicUserRoomState.Clear();
+        m_arrTxtBoard = null;
         PhotonNetwork.LeaveRoom();
+        NetworkManager.nm.m_listEnemyInfo.Clear();
 
         m_OptionPanel.gameObject.SetActive(false);
         m_LoadCanvas.SetActive(false);

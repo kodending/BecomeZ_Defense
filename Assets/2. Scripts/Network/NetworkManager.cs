@@ -15,7 +15,6 @@ using System.Net.Http;
 using PlayFab.CloudScriptModels;
 using PlayFab.EconomyModels;
 using Photon.Pun.UtilityScripts;
-using System.ComponentModel;
 using DG.Tweening;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
@@ -152,11 +151,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         UIManager.um.LoseLife();
 
         //사망한 것으로 판단
-        if(UIManager.um.m_oldLife <= 0)
+        if(UIManager.um.m_oldLife <= 0 && GameManager.gm.m_curState != GMSTATE.RESULT)
         {
            if(PhotonNetwork.IsMasterClient)
             {
-                PV.RPC("GameSetRPC", RpcTarget.All, (int)GAMERESULT.GAMEOVER);
+                PV.RPC("GameSetRPC", RpcTarget.All, (int)GAMERESULT.GAMEOVER, GameManager.gm.m_dicUserKillCount);
             }
 
             GameManager.gm.m_stateMachine.ChangeState(GMSTATE.RESULT);
@@ -164,9 +163,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void GameSetRPC(int result)
+    void GameSetRPC(int result, Dictionary<string, int> dic)
     {
-        UIManager.um.OnResult(result);
+        UIManager.um.OnResult(result, dic);
     }
 
     //playfab 로그인
@@ -517,7 +516,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    PV.RPC("GameSetRPC", RpcTarget.All, (int)GAMERESULT.GAMEOVER);
+                    PV.RPC("GameSetRPC", RpcTarget.All, (int)GAMERESULT.VICTORY);
                 }
 
                 GameManager.gm.m_stateMachine.ChangeState(GMSTATE.RESULT);
@@ -534,6 +533,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             m_dicPlayFabCostume.Clear();
             GameManager.gm.m_dicUserKillCount.Clear();
             GameManager.gm.m_dicUserRoomState.Clear();
+            UIManager.um.m_arrTxtBoard = null;
+            m_listEnemyInfo.Clear();
             PhotonNetwork.LeaveRoom();
         }
     }
@@ -805,13 +806,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void GetCatalogItem()
     {
-        if (CostumeManager.cm.m_dicCatalogItem.Count != 0) CostumeManager.cm.m_dicCatalogItem.Clear();
+        if (GameManager.gm.m_dicCatalogItem.Count != 0) GameManager.gm.m_dicCatalogItem.Clear();
 
         PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Main" }, (result) =>
         {
             foreach (var catalogItem in result.Catalog)
             {
-                CostumeManager.cm.m_dicCatalogItem.Add(catalogItem.ItemId, catalogItem);
+                GameManager.gm.m_dicCatalogItem.Add(catalogItem.ItemId, catalogItem);
             }
         },
         (error) => print("카탈로그 불러오기 실패"));

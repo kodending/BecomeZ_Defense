@@ -22,10 +22,20 @@ public class Unit_Attack : UnitBaseState
 
     public override void OnEnterState()
     {
+        m_fAnimTimer = 0;
+        m_fMaxTimer = (unitFSM.m_fDefaultAtkSpd / (unitFSM.m_sInfo.atkSpeed /* //버프캐릭의 공격속도 더하기 */ + unitFSM.m_sUnitBuff.buffAtkSpd + unitFSM.m_sPlayerBuff.buffAtkSpd)) * unitFSM.m_sInfo.animLength;
+        m_fAnimSpeed = unitFSM.m_fDefaultAtkSpd * (unitFSM.m_sInfo.atkSpeed /* //버프캐릭의 공격속도 더하기 */ + unitFSM.m_sUnitBuff.buffAtkSpd + unitFSM.m_sPlayerBuff.buffAtkSpd);
+
+        m_icurAtk = unitFSM.m_sInfo.atk + (unitFSM.m_sInfo.curLV * unitFSM.m_sInfo.LvAtk) /* + 버프캐릭의 버프 */ + unitFSM.m_sUnitBuff.buffAtk;
+
+        unitFSM.m_anim.SetTrigger("Attack");
+        unitFSM.m_curState = UNITSTATE.ATTACK;
+        unitFSM.m_anim.SetFloat("AttackSpeed", m_fAnimSpeed);
 
         if (!unitFSM.m_pv.IsMine) return;
 
-        unitFSM.m_pv.RPC("AnimTriggerRPC", RpcTarget.All, "Attack", (int)UNITSTATE.ATTACK);
+        //unitFSM.m_pv.RPC("AnimTriggerRPC", RpcTarget.All, "Attack", (int)UNITSTATE.ATTACK);
+        //unitFSM.m_pv.RPC("AnimBoolRPC", RpcTarget.All, "isAttack", true, (int)UNITSTATE.ATTACK);
 
         m_curTargetEnemy = unitFSM.m_enemyScan.nearestTargetEnemy.GetComponent<EnemyFSM>();
 
@@ -34,13 +44,7 @@ public class Unit_Attack : UnitBaseState
         ////공격방향
         unitFSM.transform.rotation = Quaternion.LookRotation(rot.normalized);
 
-        m_fAnimTimer = 0;
-        m_fMaxTimer = (unitFSM.m_fDefaultAtkSpd / (unitFSM.m_sInfo.atkSpeed /* //버프캐릭의 공격속도 더하기 */ + unitFSM.m_sUnitBuff.buffAtkSpd + unitFSM.m_sPlayerBuff.buffAtkSpd)) * unitFSM.m_sInfo.animLength;
-        m_fAnimSpeed = unitFSM.m_fDefaultAtkSpd * (unitFSM.m_sInfo.atkSpeed /* //버프캐릭의 공격속도 더하기 */ + unitFSM.m_sUnitBuff.buffAtkSpd + unitFSM.m_sPlayerBuff.buffAtkSpd);
-
-        unitFSM.m_pv.RPC("AnimFloatRPC", RpcTarget.All, "AttackSpeed", m_fAnimSpeed);
-
-        m_icurAtk = unitFSM.m_sInfo.atk + (unitFSM.m_sInfo.curLV * unitFSM.m_sInfo.LvAtk) /* + 버프캐릭의 버프 */ + unitFSM.m_sUnitBuff.buffAtk;
+        //unitFSM.m_pv.RPC("AnimFloatRPC", RpcTarget.All, "AttackSpeed", m_fAnimSpeed);
 
         //히트된 에너미를 딱 고른다.
         m_listHitEnemies.Clear();
@@ -118,7 +122,8 @@ public class Unit_Attack : UnitBaseState
                     Vector3 pos = new Vector3(unitFSM.transform.position.x, 0.01f, unitFSM.transform.position.z);
                     string fxName = unitFSM.m_sInfo.eRank >= UNITRANK.EPIC ? "UNITATTACK_MeleeMultiEpic" : "UNITATTACK_MeleeMulti";
                     unitFSM.m_pv.RPC("OnFXRPC", RpcTarget.All, fxName, pos);
-                    unitFSM.m_stateMachine.ChangeState(UNITSTATE.IDLE);
+                    //unitFSM.m_stateMachine.ChangeState(UNITSTATE.IDLE);
+                    unitFSM.m_pv.RPC("ChangeStateRPC", RpcTarget.All, (int)UNITSTATE.IDLE);
                 }
                 break;
 

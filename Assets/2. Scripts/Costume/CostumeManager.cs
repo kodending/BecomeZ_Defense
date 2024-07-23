@@ -38,8 +38,8 @@ public class CostumeManager : MonoBehaviour
     [HideInInspector]
     public Dictionary<string, ItemInstance> m_dicInven;
 
-    [HideInInspector]
-    public Dictionary<string, CatalogItem> m_dicCatalogItem;
+    //[HideInInspector]
+    //public Dictionary<string, CatalogItem> m_dicCatalogItem;
 
     [HideInInspector]
     public string m_strMyMoney;
@@ -75,12 +75,10 @@ public class CostumeManager : MonoBehaviour
 
         m_rtrContent.anchoredPosition = new Vector2(0, 0);
 
-        m_dicCurCostume = new Dictionary<COSTUMETYPE, int>();
-        m_dicChangeCostume = new Dictionary<COSTUMETYPE, int>();
-
-        m_dicCatalogItem = new Dictionary<string, CatalogItem>();
-
-        m_dicInven = new Dictionary<string, ItemInstance>();
+        if(m_dicCurCostume == null) m_dicCurCostume = new Dictionary<COSTUMETYPE, int>();
+        if(m_dicChangeCostume == null) m_dicChangeCostume = new Dictionary<COSTUMETYPE, int>();
+        if (m_dicInven == null) m_dicInven = new Dictionary<string, ItemInstance>();
+        //if (m_dicCatalogItem == null) m_dicCatalogItem = new Dictionary<string, CatalogItem>();
 
         m_goPurchasePanel = GameObject.Find("3DCanvas").transform.Find("PurchasePanel").gameObject;
 
@@ -92,6 +90,7 @@ public class CostumeManager : MonoBehaviour
         m_txtItemPrice = m_goPurchasePanel.transform.Find("MoneyText").GetComponent<Text>();
 
         m_txtCurMoney = GameObject.Find("3DCanvas").transform.Find("MyMoneyPanel").transform.Find("MoneyText").GetComponent<Text>();
+
     }
 
     private void DisabledChildRecursively(GameObject go)
@@ -121,6 +120,7 @@ public class CostumeManager : MonoBehaviour
     public void ActiveItem(COSTUMETYPE eType, bool onClick = true)
     {
         if (m_eCurCosType == eType && onClick) return;
+        //if (m_eCurCosType == COSTUMETYPE._MAX_) return;
 
         m_eCurCosType = eType;
 
@@ -167,7 +167,7 @@ public class CostumeManager : MonoBehaviour
                 //가격표시
                 Text moneyTxt = item.transform.Find("MoneyText").GetComponent<Text>();
                 moneyTxt.gameObject.SetActive(true);
-                moneyTxt.text = m_dicCatalogItem[strKey].VirtualCurrencyPrices["PG"].ToString();
+                moneyTxt.text = GameManager.gm.m_dicCatalogItem[strKey].VirtualCurrencyPrices["PG"].ToString();
 
 
                 //여기서 아이템있는지 검사하고 있으면 잠금 비활성화

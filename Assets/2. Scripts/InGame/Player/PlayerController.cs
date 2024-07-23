@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             m_sInfo.atkSpeed = 2f;
             m_sInfo.runSpeed = 2f;
 
-            m_iMyGold = 0;
+            m_iMyGold = 200;
 
             m_pjAttackRange.orthographicSize = m_sInfo.atkRange;
             m_fMoveSpeed = m_sInfo.runSpeed;
@@ -353,7 +353,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 if(m_pv.IsMine)
                 {
                     m_curType = PLAYERTYPE.BOXER;
-                    m_sInfo.atk = 30;
+                    //m_sInfo.atk = 30;
+                    m_sInfo.atk = 100;
                     m_sInfo.atkRange = 2f;
                     m_sInfo.atkSpeed = 1f;
                     m_sInfo.runSpeed = 4f;
@@ -379,7 +380,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     m_sInfo.atkRange = 3f;
                     m_sInfo.atkSpeed = 0.3f;
                     m_sInfo.runSpeed = 5f;
-                    m_sInfo.targetCnt = 1;
+                    m_sInfo.targetCnt = 2;
 
                     m_fMoveSpeed = m_sInfo.runSpeed;
                     m_pjAttackRange.orthographicSize = m_sInfo.atkRange;
@@ -396,12 +397,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     void UpStatRPC(int typeIdx, string nickName, float plus)
     {
-        if ((CARDTYPE)typeIdx == CARDTYPE.BOOM)
-        {
-            UIManager.um.SystemMessage(nickName + "님이 꽝을 선택하셨습니다ㅋㅋ");
-            //망했을때 사운드 찾아서 넣어놓기
-        }
-
         if (!m_pv.IsMine) return;
 
         switch ((CARDTYPE)typeIdx)

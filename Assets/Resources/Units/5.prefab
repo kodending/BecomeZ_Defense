@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pv: {fileID: -592282038576842563}
-  m_anim: {fileID: 0}
+  m_anim: {fileID: 7145538665992094968}
   m_pjAttackRange: {fileID: 2674152378960412849}
   m_curState: 0
   m_enemyScan: {fileID: -5574719815688844237}

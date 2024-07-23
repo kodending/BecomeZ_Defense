@@ -21,9 +21,9 @@ public class GameResultPanel : MonoBehaviourPunCallbacks
         grp = this;
     }
 
-    static public void RefreshInfo(GAMERESULT eResult)
+    static public void RefreshInfo(GAMERESULT eResult, Dictionary<string, int> dic) 
     {
-        Dictionary<string, int> killInfo = GameManager.gm.m_dicUserKillCount;
+        Dictionary<string, int> killInfo = dic;
 
         List<PLAYERKILLINFO> listKillInfo = new List<PLAYERKILLINFO>();
 
@@ -61,5 +61,10 @@ public class GameResultPanel : MonoBehaviourPunCallbacks
 
             grp.m_arrTxtReward[i].text = rewardMoney.ToString();
         }
+    }
+
+    public void OnClickExitGame()
+    {
+        UIManager.um.OnClickGameExit();
     }
 }

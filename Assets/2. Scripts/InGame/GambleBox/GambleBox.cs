@@ -40,15 +40,20 @@ public class GambleBox : MonoBehaviourPunCallbacks
                 int money = int.Parse(GambleInfo["GOLD"].ToString());
                 int efIdx = int.Parse(GambleInfo["RANK"].ToString());
 
-                m_pv.RPC("OpenRPC", RpcTarget.All, efIdx);
+                GameManager.gm.m_pcLocal.m_iMyGold += money;
+                UIManager.um.RefreshMyGoldText();
+
+                m_pv.RPC("OpenRPC", RpcTarget.All, efIdx, money, name);
                 //Debug.Log("»óÀÚ ¿¬ ³ð : " + name + " È¹µæ ±Ý¾× : " + money.ToString());
             }
         }
     }
 
     [PunRPC]
-    void OpenRPC(int idx)
+    void OpenRPC(int idx, int money, string name)
     {
+        string msg = name + "´ÔÀÌ " + money.ToString() + "¿øÀ» È¹µæÇÏ¿´½À´Ï´Ù.";
+        UIManager.um.SystemMessage(msg);
         m_isOpen = true;
         m_anim.SetTrigger("Open");
         StartCoroutine(OpenBox(idx));
