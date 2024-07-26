@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             m_sInfo.runSpeed = 2f;
 
             m_iMyGold = 200;
+            //m_iMyGold = 1000;
 
             m_pjAttackRange.orthographicSize = m_sInfo.atkRange;
             m_fMoveSpeed = m_sInfo.runSpeed;

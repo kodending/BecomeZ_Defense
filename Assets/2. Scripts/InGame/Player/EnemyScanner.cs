@@ -158,7 +158,7 @@ public class EnemyScanner : MonoBehaviourPunCallbacks
 
     //private void OnDrawGizmos()
     //{
-    //    Gizmos.color = Color.yellow;
+    //    Gizmos.color = Color.red;
     //    Gizmos.DrawWireSphere(transform.position, scanRange);
     //}
 

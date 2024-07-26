@@ -90,6 +90,13 @@ public class AudioManager : MonoBehaviourPunCallbacks
         else am.bgmPlayer.Stop();
     }
 
+    static public bool IsPlayBGM(BGM eBgm)
+    {
+        am.bgmPlayer.clip = am.bgmClips[(int)eBgm];
+
+        return am.bgmPlayer.isPlaying;
+    }
+
     static public void EffectBGM(bool isPlay) => am.bgmEffect.enabled = isPlay;
 
     static public void PlaySfx(SFX eSfx)

@@ -2173,6 +2173,7 @@ MonoBehaviour:
   m_targetAllyLayers:
     serializedVersion: 2
     m_Bits: 320
+  m_iMyGold: 0
 --- !u!95 &3686519453930616482
 Animator:
   serializedVersion: 5

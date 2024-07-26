@@ -23,6 +23,8 @@ public class UIInReady : BaseState
     public override void OnEnterState()
     {
         UIManager.um.m_eCurState = UISTATE.READY;
+        if(!AudioManager.IsPlayBGM(BGM.LOBBY))
+            AudioManager.PlayBGM(BGM.LOBBY, true);
         StartSet();
     }
 
@@ -134,8 +136,6 @@ public class UIInReady : BaseState
 
         m_goReadyPanel.SetActive(true);
         UIManager.um.ShowScaleUI(m_goReadyPanel);
-
-        AudioManager.PlayBGM(BGM.LOBBY, true);
     }
 
     void OnClickCostume()

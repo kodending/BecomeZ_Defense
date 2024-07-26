@@ -47,8 +47,6 @@ public class UIInLobby : BaseState
         m_btnPublic.onClick.RemoveAllListeners();
         m_btnPrivate.onClick.RemoveAllListeners();
 
-        AudioManager.PlayBGM(BGM.LOBBY, false);
-
         m_goRoomPanel.gameObject.SetActive(false);
     }
 

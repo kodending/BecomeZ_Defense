@@ -19,6 +19,7 @@ public class UIInEnteringField : BaseState
         m_goLoadingPanel = UIManager.um.m_LoadingPanel;
         m_goLoadingPanel.SetActive(true);
         m_txtLoading = UIManager.um.m_txtLoading;
+        AudioManager.PlayBGM(BGM.LOBBY, false);
     }
 
     public override void OnUpdateState()
